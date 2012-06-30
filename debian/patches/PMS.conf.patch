@@ -1,0 +1,174 @@
+--- a/src/main/external-resources/PMS.conf
++++ b/src/main/external-resources/PMS.conf
+@@ -154,7 +154,7 @@
+ # GUI Option: Prevent OS from sleeping while streaming (toggle)
+ # If your host server has a power-saving mode, use this option to prevent
+ # the server hibernating or sleeping while it is streaming data.
+-prevents_sleep_mode = false
++prevents_sleep_mode = true
+ 
+ # GUI Option: Default renderer when automatic detection fails (selector)
+ # PMS can recognize many renderers automatically. Sometimes a renderer will
+@@ -200,7 +200,7 @@
+ # Whether or not to use MPlayer to generate the thumbnails for video;
+ # can produce better results than built-in method.
+ # Default is false, which will use the built-in method.
+-use_mplayer_for_video_thumbs = false
++use_mplayer_for_video_thumbs = true
+ 
+ # DVD thumbnails
+ # --------------
+@@ -245,7 +245,7 @@
+ # extracted only when selected for viewing.
+ # Archives supported include zip, rar, cbr and possibly others. Default value
+ # is false.
+-enable_archive_browsing = false
++enable_archive_browsing = true
+ 
+ # Hide Video settings
+ # -------------------
+@@ -312,7 +312,7 @@
+ # Without a cache, when the client browses a folder, content is listed in
+ # real-time. With a cache, additional information becomes available and
+ # the cache can be browsed directly. Default value is false.
+-usecache = false
++usecache = true
+ 
+ # Hide cache folder
+ # -----------------
+@@ -355,7 +355,7 @@
+ # GUI Option: Ordered list of engines (selector)
+ # System generates list of available engines, list depends on host.
+ # Default value is "mencoder,avsmencoder,tsmuxer,ffmpegaudio,mplayeraudio,tsmuxeraudio,vlcvideo,mencoderwebvideo,mplayervideodump,mplayerwebaudio,vlcaudio,ffmpegdvrmsremux,rawthumbs"
+-engines = mencoder,avsmencoder,tsmuxer,ffmpegaudio,mplayeraudio,tsmuxeraudio,vlcvideo,mencoderwebvideo,mplayervideodump,mplayerwebaudio,vlcaudio,ffmpegdvrmsremux,rawthumbs
++engines = tsmuxer,mencoder,ffmpegaudio,mplayeraudio,tsmuxeraudio,mplayervideodump,mencoderwebvideo,vlcvideo,mplayerwebaudio,vlcaudio,rawthumbs
+ 
+ # ----------------------------------------------------------------------------
+ # Transcoding Settings: Common settings
+@@ -415,13 +415,13 @@
+ # ---------------
+ # GUI Option: Keep AC3 track (no re-encode, may cause inaudible dialog and A/V sync issues) (toggle)
+ # The default value is true.
+-mencoder_remux_ac3 = true
++mencoder_remux_ac3 = false
+ 
+ # Keep DTS track
+ # ------------------
+ # GUI Option: Keep DTS track (no re-encode, compatible with AV receiver through optical or HDMI output) (toggle)
+ # Default value is false.
+-embed_dts_in_pcm = false
++embed_dts_in_pcm = true
+ 
+ # Use LPCM for audio
+ # ---------------------------
+@@ -452,7 +452,7 @@
+ # GUI Option: MPEG-2 options (string)
+ # Sets the quality for MPEG-2 conversion; MPEG-2 is the fallback format if the client
+ # does not support a video format natively. The default value is "keyint=5:vqscale=1:vqmin=2"
+-mencoder_encode = keyint=5:vqscale=1:vqmin=2
++mencoder_encode = keyint=2:vqscale=1:vqmin=2
+ 
+ # ---< Misc options >---------------------------------------------------------
+ 
+@@ -558,7 +558,7 @@
+ # MEncoder when choosing audio languages, where "und" stands for "undefined".
+ # For example: "eng,fre,jpn,ger,und". Default value is empty, which will let
+ # PMS pick the priority.
+-mencoder_audiolangs =
++mencoder_audiolangs = rus,eng,jpn
+ 
+ # ---< Subtitle settings >----------------------------------------------------
+ 
+@@ -569,7 +569,7 @@
+ # MEncoder when choosing subtitle languages, where "und" stands for
+ # "undefined". For example: "eng,fre,jpn,ger,und". Default value is empty,
+ # which will let PMS pick the priority.
+-mencoder_sublangs =
++mencoder_sublangs = rus,eng
+ 
+ # Force subtitle language
+ # -----------------------
+@@ -600,7 +600,7 @@
+ # GUI Option: Subtitles codepage (string)
+ # The character encoding (or code page) that MEncoder should use for
+ # displaying subtitles. Default value is "cp1252".
+-mencoder_subcp = cp1252
++mencoder_subcp = utf-8
+ 
+ # FriBiDi
+ # -------
+@@ -615,7 +615,7 @@
+ # GUI Option: Subtitle font (string)
+ # GUI offers a navigator to a folder generating an absolute path.
+ # Default value is empty.
+-mencoder_font =
++mencoder_font = Ubuntu
+ 
+ # Subtitles folder blank
+ # ----------------------
+@@ -648,7 +648,7 @@
+ # The integer value for the subtitle colour. GUI offers a palette to choose
+ # from that will generate a number. Default is empty, causing PMS to pick
+ # white.
+-subs_color =
++subs_color = -1
+ 
+ # Style font scale
+ # ----------------
+@@ -658,15 +658,15 @@
+ 
+ # GUI Option: Styled font outline
+ # The outline parameter used for ASS subtitling. Default value is 1.
+-mencoder_ass_outline = 1
++mencoder_ass_outline = 2
+ 
+ # GUI Option: Styled font shadow
+ # The shadow parameter used for ASS subtitling. Default value is 1.
+-mencoder_ass_shadow = 1
++mencoder_ass_shadow = 0
+ 
+ # GUI Option: Styled margin
+ # The margin used for ASS subtitling. The default value is 10.
+-mencoder_ass_margin = 10
++mencoder_ass_margin = 40
+ 
+ # Plain font scale
+ # ----------------
+@@ -678,7 +678,7 @@
+ # GUI Option: Plain font outline
+ # The subfont outline parameter used for subtitling without ASS. Default value
+ # is 1.
+-mencoder_noass_outline = 1
++mencoder_noass_outline = 4
+ 
+ # GUI Option: Plain font blur
+ # The subfont blur parameter used for subtitling without ASS. The default value
+@@ -687,7 +687,7 @@
+ 
+ # GUI Option: Plain margin
+ # The subpos parameter used for subtitling without ASS. Default value is 2.
+-mencoder_noass_subpos = 2
++mencoder_noass_subpos = 13
+ 
+ # Load subtitles
+ # --------------
+@@ -700,7 +700,7 @@
+ # ------------------------
+ # GUI Option: DVD/VOB subtitle quality
+ # The default value is 3.
+-mencoder_vobsub_subtitle_quality = 3
++mencoder_vobsub_subtitle_quality = 4
+ 
+ # Add borders
+ # -----------
+@@ -772,3 +772,10 @@
+ #tsmuxer_preremix_ac3 = false
+ 
+ # ---< Other settings saved by PMS >------------------------------------------
++
++# ---< Binary tools paths >------------------------------------------
++mencoder_path = /usr/lib/ps3mediaserver/linux/mencoder
++ffmpeg_path = /usr/lib/ps3mediaserver/linux/ffmpeg
++mplayer_path = /usr/lib/ps3mediaserver/linux/mplayer
++tsmuxer_path = /usr/lib/ps3mediaserver/linux/tsMuxeR
++dcraw_path = /usr/lib/ps3mediaserver/linux/dcraw

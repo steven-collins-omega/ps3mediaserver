@@ -1,0 +1,14 @@
+binary-tools-versions.patch
+download-pms-binaries-source.patch
+rollback-build-pms-binaries-to-SB22.patch
+rollback-mplayer.patch-to-SB22.patch
+project-properties.patch
+PMS.conf.patch
+path-to-mediainfo-lib.patch
+debug-log-path.patch
+autoupdate-and-confdir.patch
+temp-path.patch
+media-database-path.patch
+remove-unstable-warning.patch
+PMS.sh.patch
+add-ant-build.patch
