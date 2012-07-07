@@ -39,9 +39,9 @@
 @@ -355,7 +355,7 @@
  # GUI Option: Ordered list of engines (selector)
  # System generates list of available engines, list depends on host.
- # Default value is "mencoder,avsmencoder,tsmuxer,ffmpegaudio,mplayeraudio,tsmuxeraudio,vlcvideo,mencoderwebvideo,mplayervideodump,mplayerwebaudio,vlcaudio,ffmpegdvrmsremux,rawthumbs"
--engines = mencoder,avsmencoder,tsmuxer,ffmpegaudio,mplayeraudio,tsmuxeraudio,vlcvideo,mencoderwebvideo,mplayervideodump,mplayerwebaudio,vlcaudio,ffmpegdvrmsremux,rawthumbs
-+engines = tsmuxer,mencoder,ffmpegaudio,mplayeraudio,tsmuxeraudio,mplayervideodump,mencoderwebvideo,vlcvideo,mplayerwebaudio,vlcaudio,rawthumbs
+ # Default value is "mencoder,avsmencoder,tsmuxer,ffmpegvideo,ffmpegaudio,mplayeraudio,tsmuxeraudio,vlcvideo,mencoderwebvideo,mplayervideodump,mplayerwebaudio,vlcaudio,ffmpegdvrmsremux,rawthumbs"
+-engines = mencoder,avsmencoder,tsmuxer,ffmpegvideo,ffmpegaudio,mplayeraudio,tsmuxeraudio,vlcvideo,mencoderwebvideo,mplayervideodump,mplayerwebaudio,vlcaudio,ffmpegdvrmsremux,rawthumbs
++engines = tsmuxer,mencoder,ffmpegvideo,ffmpegaudio,mplayeraudio,tsmuxeraudio,mplayervideodump,mencoderwebvideo,vlcvideo,mplayerwebaudio,vlcaudio,rawthumbs
  
  # ----------------------------------------------------------------------------
  # Transcoding Settings: Common settings
