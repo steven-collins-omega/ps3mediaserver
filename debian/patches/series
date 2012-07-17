@@ -1,4 +1,3 @@
-binary-tools-versions.patch
 download-pms-binaries-source.patch
 rollback-build-pms-binaries-to-SB22.patch
 rollback-mplayer.patch-to-SB22.patch
