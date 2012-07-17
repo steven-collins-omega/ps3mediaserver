@@ -1,8 +1,0 @@
---- a/contrib/download-pms-binaries-source.sh	(revision 07d2e33accf172ff468932d615b936d7b3a9be24)
-+++ b/contrib/download-pms-binaries-source.sh
-@@ -793,4 +793,4 @@
- download_ffmpeg
- download_mplayer
- download_tsmuxer
--download_ps3mediaserver
-+#download_ps3mediaserver
