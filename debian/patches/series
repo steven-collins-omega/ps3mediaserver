@@ -1,5 +1,3 @@
-rollback-build-pms-binaries-to-SB22.patch
-rollback-mplayer.patch-to-SB22.patch
 project-properties.patch
 PMS.conf.patch
 path-to-mediainfo-lib.patch
