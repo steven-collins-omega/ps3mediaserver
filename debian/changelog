@@ -1,3 +1,11 @@
+ps3mediaserver (1.60.00+git+mencoder35003-1) precise; urgency=low
+
+  * New upstream release 1.60.0 (https://github.com/ps3mediaserver/ps3mediaserver/blob/master/CHANGELOG)
+  * mnecoder updated to r35003 vanilla
+  * ffmpeg updated to 0.11.1 stable
+
+ -- I. Sokolov <happy.neko@gmail.com>  Tue, 17 Jul 2012 18:46:43 +0400
+
 ps3mediaserver (1.54.00+git+mencoder34587-1) precise; urgency=low
 
   * New upstream release 1.54.00 (https://github.com/ps3mediaserver/ps3mediaserver/blob/master/CHANGELOG)
