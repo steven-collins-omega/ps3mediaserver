@@ -11,7 +11,7 @@ Description: debian policy filepathes, debian package version
 -project.logback=logback.xml
 -project.logback.headless=logback.headless.xml
 +project.name=PS3 Media Server
-+project.version=1.54.00-mencoder34587-1 (ppa:happy-neko)
++project.version=1.60.0+git+mencoder35003-1 (ppa:happy-neko)
 +project.renderers.dir=/etc/ps3mediaserver/renderers
 +project.binaries.dir=/usr/lib/ps3mediaserver/linux
 +project.documentation.dir=/usr/share/doc/ps3mediaserver/documentation
@@ -22,5 +22,5 @@ Description: debian policy filepathes, debian package version
  # Git commit information from the git-commit-id-plugin
 -git.commit.id=${git.commit.id}
 -git.commit.time=${git.commit.time}
-+git.commit.id=2ac659cf4d3d19af4cded95eeb87dd4406fca71e
-+git.commit.time=Thu Jun 14 00:48:21 2012 +0400
++git.commit.id=281930efc0ae8465e7d53acc47b68e79aed30cdc
++git.commit.time=Sat Jul 14 23:36:08 2012 +0100
