@@ -1,4 +1,4 @@
-ps3mediaserver (1.60.00+git+mencoder35003-1) precise; urgency=low
+ps3mediaserver (1.60.0+git+mencoder35003-1) precise; urgency=low
 
   * New upstream release 1.60.0 (https://github.com/ps3mediaserver/ps3mediaserver/blob/master/CHANGELOG)
   * mnecoder updated to r35003 vanilla
