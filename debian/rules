@@ -40,7 +40,7 @@ get-orig-source:
 	tar --directory $(PACKAGE)-$(VER).orig --strip-components=1 -zxf $(PACKAGE)-$(VER).tar.gz
 	rm -rf $(PACKAGE)-$(VER).tar.gz
 	# download binary tools source
-	( cd $(PACKAGE)-$(VER).orig  ; patch -p1 < ./../debian/patches/binary-tools-versions.patch ; patch -p1 < ./../debian/patches/download-pms-binaries-source.patch ; patch -p1 < ./../debian/patches/add-ant-build.patch )
+	( cd $(PACKAGE)-$(VER).orig  ; patch -p1 < ./../debian/patches/add-ant-build.patch )
 	( cd $(PACKAGE)-$(VER).orig/contrib ; ./download-pms-binaries-source.sh )
 	# download java libs
 	( cd $(PACKAGE)-$(VER).orig ; ant get-deps-all )
@@ -48,7 +48,7 @@ get-orig-source:
 	( cd $(PACKAGE)-$(VER).orig  ; rm -rf $(removeFromSource) ) 
 	( cd $(PACKAGE)-$(VER).orig  ; find . -type f \( -name "*-sources.jar" -o -name "*-javadoc.jar" -o -name "*-sources.zip" -o -name "*-javadoc.zip" -o -name "*-docs.zip" \) -exec rm -vf '{}' \; )
 	# revert patches to restore vanilla sources
-	( cd $(PACKAGE)-$(VER).orig  ; patch -Rp1 < ./../debian/patches/binary-tools-versions.patch ; patch -Rp1 < ./../debian/patches/download-pms-binaries-source.patch ; patch -Rp1 < ./../debian/patches/add-ant-build.patch )
+	( cd $(PACKAGE)-$(VER).orig  ; patch -Rp1 < ./../debian/patches/add-ant-build.patch )
 	dh_testdir
 	GZIP=--best tar -cz --owner root --group root --mode a+rX -f $(PACKAGE)_$(VER).orig.tar.gz $(PACKAGE)-$(VER).orig
 	rm -rf $(PACKAGE)-$(VER).orig
