@@ -70,25 +70,24 @@
  
  # ---< Misc options >---------------------------------------------------------
  
-@@ -558,7 +558,7 @@
- # MEncoder when choosing audio languages, where "und" stands for "undefined".
- # For example: "eng,fre,jpn,ger,und". Default value is empty, which will let
- # PMS pick the priority.
--mencoder_audiolangs =
-+mencoder_audiolangs = rus,eng,jpn
+@@ -530,7 +530,7 @@
+ # ------------
+ # GUI Option: Remux videos
+ # Default value is true.
+-mencoder_mux_compatible = true
++mencoder_mux_compatible = false
  
- # ---< Subtitle settings >----------------------------------------------------
+ # Codec specific parameters
+ # -------------------------
+@@ -594,14 +594,14 @@
+ # "loc" to match the local language. Subtitle language can be defined as
+ # "off".
+ # Default value is "loc,off;jpn,loc;*,loc;*,*".
+-mencoder_audiosublangs =
++mencoder_audiosublangs = jpn,rus;jpn,eng;rus,off
  
-@@ -569,7 +569,7 @@
- # MEncoder when choosing subtitle languages, where "und" stands for
- # "undefined". For example: "eng,fre,jpn,ger,und". Default value is empty,
- # which will let PMS pick the priority.
--mencoder_sublangs =
-+mencoder_sublangs = rus,eng
- 
- # Force subtitle language
- # -----------------------
-@@ -600,7 +600,7 @@
+ # Subtitles codepage
+ # ------------------
  # GUI Option: Subtitles codepage (string)
  # The character encoding (or code page) that MEncoder should use for
  # displaying subtitles. Default value is "cp1252".
@@ -97,7 +96,7 @@
  
  # FriBiDi
  # -------
-@@ -615,7 +615,7 @@
+@@ -616,7 +616,7 @@
  # GUI Option: Subtitle font (string)
  # GUI offers a navigator to a folder generating an absolute path.
  # Default value is empty.
@@ -106,7 +105,7 @@
  
  # Subtitles folder blank
  # ----------------------
-@@ -648,7 +648,7 @@
+@@ -649,7 +649,7 @@
  # The integer value for the subtitle colour. GUI offers a palette to choose
  # from that will generate a number. Default is empty, causing PMS to pick
  # white.
@@ -115,7 +114,7 @@
  
  # Style font scale
  # ----------------
-@@ -658,15 +658,15 @@
+@@ -659,15 +659,15 @@
  
  # GUI Option: Styled font outline
  # The outline parameter used for ASS subtitling. Default value is 1.
@@ -134,7 +133,7 @@
  
  # Plain font scale
  # ----------------
-@@ -678,7 +678,7 @@
+@@ -679,7 +679,7 @@
  # GUI Option: Plain font outline
  # The subfont outline parameter used for subtitling without ASS. Default value
  # is 1.
@@ -143,7 +142,7 @@
  
  # GUI Option: Plain font blur
  # The subfont blur parameter used for subtitling without ASS. The default value
-@@ -687,7 +687,7 @@
+@@ -688,7 +688,7 @@
  
  # GUI Option: Plain margin
  # The subpos parameter used for subtitling without ASS. Default value is 2.
@@ -152,7 +151,7 @@
  
  # Load subtitles
  # --------------
-@@ -700,7 +700,7 @@
+@@ -701,7 +701,7 @@
  # ------------------------
  # GUI Option: DVD/VOB subtitle quality
  # The default value is 3.
@@ -161,7 +160,7 @@
  
  # Add borders
  # -----------
-@@ -772,3 +772,10 @@
+@@ -773,3 +773,10 @@
  #tsmuxer_preremix_ac3 = false
  
  # ---< Other settings saved by PMS >------------------------------------------
