@@ -1,3 +1,9 @@
+ps3mediaserver (1.82.0+mencoder) precise; urgency=low
+
+  * New upstream release 1.82.0
+
+ -- Steven Collins <steven@onetomany.e.ponymo.us>  Sun, 14 Jul 2013 18:19:25 -0500
+
 ps3mediaserver (1.81.0+mencoder35005-3precise1) precise; urgency=low
 
   * Precise backport

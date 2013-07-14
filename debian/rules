@@ -35,7 +35,7 @@ clean:
 get-orig-source:
 	dh_testdir
 	rm -rf $(PACKAGE)-$(VER).orig $(PACKAGE)-$(VER).tar.gz $(PACKAGE)_$(VER).orig.tar.gz
-	wget -O $(PACKAGE)-$(VER).tar.gz https://github.com/Happy-Neko/ps3mediaserver/tarball/debian-$(RELEASE)
+	wget -O $(PACKAGE)-$(VER).tar.gz https://github.com/steven-collins-omega/ps3mediaserver/tarball/debian-$(RELEASE)
 	mkdir $(PACKAGE)-$(VER).orig
 	tar --directory $(PACKAGE)-$(VER).orig --strip-components=1 -zxf $(PACKAGE)-$(VER).tar.gz
 	rm -rf $(PACKAGE)-$(VER).tar.gz
