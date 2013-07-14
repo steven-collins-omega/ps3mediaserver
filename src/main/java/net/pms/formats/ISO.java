@@ -24,7 +24,18 @@ import net.pms.encoders.Player;
 import java.util.ArrayList;
 
 public class ISO extends MPG {
-	public static final String[] ISO_EXTENSIONS = new String[] { "iso", "img", /*"bin", "mdf", "nrg", "bwt", "cif","ccd", "vcd", "fcd"*/ };
+	public static final String[] ISO_EXTENSIONS = new String[] {
+		// "bin",
+		// "bwt",
+		// "ccd",
+		// "cif",
+		// "fcd",
+		"img",
+		"iso",
+		// "mdf",
+		// "nrg",
+		// "vcd",
+	};
 
 	/**
 	 * {@inheritDoc} 
@@ -34,7 +45,8 @@ public class ISO extends MPG {
 		return Identifier.ISO;
 	}
 
-
+	// XXX unused
+	@Deprecated
 	@Override
 	public ArrayList<Class<? extends Player>> getProfiles() {
 		ArrayList<Class<? extends Player>> list = new ArrayList<Class<? extends Player>>();

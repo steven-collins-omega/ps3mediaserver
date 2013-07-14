@@ -15,7 +15,7 @@ import net.pms.util.PropertiesUtil;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.ConversionException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,9 @@ public class RendererConfiguration {
 	private static final String EXCLUSIVE = "exclusive";
 	private static final String LPCM = "LPCM";
 	private static final String MP3 = "MP3";
+	// TODO (breaking change): rename MPEG2PS
 	private static final String MPEGPSAC3 = "MPEGPSAC3";
+	// TODO (breaking change): rename MPEG2TS
 	private static final String MPEGTSAC3 = "MPEGTSAC3";
 	private static final String WAV = "WAV";
 	private static final String WMV = "WMV";

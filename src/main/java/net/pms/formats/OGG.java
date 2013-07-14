@@ -39,6 +39,8 @@ public class OGG extends MP3 {
 		return true;
 	}
 
+	// XXX unused
+	@Deprecated
 	@Override
 	public ArrayList<Class<? extends Player>> getProfiles() {
 		ArrayList<Class<? extends Player>> a = new ArrayList<Class<? extends Player>>();
@@ -58,8 +60,22 @@ public class OGG extends MP3 {
 	 */
 	@Override
 	public String[] getId() {
-		return new String[] { "dts", "mka", "ape", "ogg", "shn", "mpc", "ra",
-				"mp2", "wv", "oma", "aa3", "at3", "aif", "aiff" };
+		return new String[] {
+			"aa3",
+			"aif",
+			"aiff",
+			"ape",
+			"at3",
+			"dts",
+			"mka",
+			"mp2",
+			"mpc",
+			"ogg",
+			"oma",
+			"ra",
+			"shn",
+			"wv",
+		};
 	}
 
 	/**

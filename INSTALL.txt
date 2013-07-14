@@ -9,7 +9,7 @@ following commands (replace <version> with the version you're downloading/using 
 1) Install the dependencies (this only needs to be done once):
 
     sudo apt-get install ffmpeg mediainfo mencoder openjdk-7-jre
-    # you can also optionally install vlc: sudo apt-get install vlc
+    # you can also optionally install dcraw and vlc: sudo apt-get install dcraw vlc
 
 2) Download the tarball e.g.:
 
@@ -25,7 +25,7 @@ following commands (replace <version> with the version you're downloading/using 
     cd pms-<version>
     ./PMS.sh
 
-PMS will look for some files in the pms-<version> directory (the working directory).
-Other files will be looked for in locations specified here:
+PMS accesses some files in the pms-<version> directory (the working directory).
+Other file locations are listed here:
 
     http://www.ps3mediaserver.org/forum/viewtopic.php?f=6&t=3507&p=32731#p32731

@@ -31,7 +31,7 @@
 	<artifactId>pms</artifactId>
 	<name>PS3 Media Server</name>
 	<packaging>jar</packaging>
-	<version>1.81.0</version> <!-- XXX don't forget to update project.version.short below -->
+	<version>1.82.0</version> <!-- XXX don't forget to update project.version.short below -->
 	<url>http://www.ps3mediaserver.org/</url>
 	<inceptionYear>2008</inceptionYear>
 
@@ -74,15 +74,16 @@
 
 	<properties>
 		<!-- NSIS needs a version without "-SNAPSHOT" or "-b1" -->
-		<project.version.short>1.81.0</project.version.short>
+		<project.version.short>1.82.0</project.version.short>
 
 		<!--
-			JNA 3.4.0 solves issue #1152, but causes a bug in Windows.
-			The version is therefore overruled in the Windows profile.
-			This property should be removed when Windows can use the
-			same version.
+			XXX we currently need to use an old version of JNA
+			for Windows builds to work around a bug in
+			JNA > 3.2.5. See here for more details:
+			https://code.google.com/p/ps3mediaserver/issues/detail?id=1152
 		-->
-		<jna-version>3.4.0</jna-version>
+		<jna-version-posix>3.4.0</jna-version-posix>
+		<jna-version-windows>3.2.5</jna-version-windows>
 
 		<cuelib-version>1.2.1-2008-06-13</cuelib-version>
 		<jgoodies-common-version>1.2.1</jgoodies-common-version>
@@ -106,9 +107,15 @@
 		<project.binaries-base>http://ps3mediaserver.googlecode.com/svn/tags/${project.version}/ps3mediaserver</project.binaries-base>
 		<!-- <project.binaries-base>http://ps3mediaserver.googlecode.com/svn/trunk/ps3mediaserver</project.binaries-base> -->
 
-		<maven.nsis.project.template>${project.basedir}/src/main/external-resources/nsis/project.jelly</maven.nsis.project.template>
 		<maven-javadoc-plugin-version>2.9</maven-javadoc-plugin-version>
 		<git-commit-id-plugin-version>2.1.4</git-commit-id-plugin-version>
+
+		<!--
+			 use the Windows makensis.exe for Windows builds unless
+			 the system makensis is explicitly selected via the
+			 system-makensis profile
+		 -->
+		<makensis-bin>${project.external-resources}/third-party/nsis/makensis.exe</makensis-bin>
 	</properties>
 
 	<pluginRepositories>
@@ -187,6 +194,8 @@
     </repositories>
 
 	<dependencies>
+		<!-- XXX note: the JNA dependency is declared at the profile level -->
+
 		<!-- TODO this can be removed when MEncoder is removed -->
 		<dependency>
 			<groupId>org.beanshell</groupId>
@@ -239,9 +248,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
 		</dependency>
 
 		<dependency>
@@ -316,7 +325,7 @@
 		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
-			<version>0.4.2</version>
+			<version>0.4.4</version>
 		</dependency>
 
 		<!--
@@ -342,12 +351,6 @@
 			<groupId>org</groupId>
 			<artifactId>jaudiotagger</artifactId>
 			<version>2.0.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>net.java.dev.jna</groupId>
-			<artifactId>jna</artifactId>
-			<version>${jna-version}</version>
 		</dependency>
 
 		<!-- XXX: not Mavenized: http://www.jgoodies.com/downloads/libraries.html -->
@@ -423,19 +426,24 @@
 	<build>
 		<defaultGoal>assembly:assembly</defaultGoal>
 
+		<!-- specify how files in src/main/resources are bundled in the target jar -->
 		<resources>
-			<!--
-				squashed bug: this needs to be defined explicitly if a <resources>...</resources>
-				section is used
-			-->
-
+			<!-- 1) package unfiltered resources -->
 			<resource>
 				<directory>src/main/resources</directory>
 				<!--
-					By default, Maven packages resources in the top-level of the jar.
-					For compatibility with trunk PMS, we preserve that destination. If this is
-					ever changed to the Maven default, a handful of files will need to be changed
-					to reference "/resource.name" rather than "/resources/resource.name"
+					By default, Maven packages resources in the top-level of the jar e.g.
+
+						/example.res
+
+					The old PMS ant build packaged them in a "resources" directory
+					e.g:
+
+						/resources/example.res
+
+					Currently, we preserve the old destination. If this is ever changed
+					to the Maven default, a handful of files will need to be changed to
+					reference "/example.res" rather than "/resources/example.res"
 				-->
 				<targetPath>resources</targetPath>
 				<excludes>
@@ -446,6 +454,7 @@
 				<filtering>false</filtering>
 			</resource>
 
+			<!-- 2) package filtered resources -->
 			<resource>
 				<directory>src/main/resources</directory>
 				<targetPath>resources</targetPath>
@@ -457,12 +466,14 @@
 				<filtering>true</filtering>
 			</resource>
 
-			<!-- Copy and filter the NSIS header file to replace Maven properties -->
+			<!-- 3) package filtered NSIS header files -->
 			<resource>
 				<directory>src/main/external-resources/nsis</directory>
 				<includes>
 					<include>extra.nsh</include>
 				</includes>
+
+				<!-- Filter to replace Maven properties -->
 				<filtering>true</filtering>
 				<targetPath>..</targetPath>
 			</resource>
@@ -928,6 +939,17 @@
 	</build>
 
 	<profiles>
+		<profile>
+			<id>system-makensis</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+
+			<properties>
+				<!-- if selected, use the system makensis on Linux, Mac OS X &c. -->
+				<makensis-bin>makensis</makensis-bin>
+			</properties>
+		</profile>
 
 		<!--
 			Windows profile: takes care of building the final package for Microsoft Windows
@@ -941,14 +963,6 @@
 				</os>
 			</activation>
 
-			<properties>
-				<!--
-					Last known JNA version known not to cause a Java crash
-					when browsing folders with files in them on Windows.
-				-->
-				<jna-version>3.2.5</jna-version>
-			</properties>
-
 			<pluginRepositories>
 				<pluginRepository>
 					<id>Codehaus Snapshots</id>
@@ -961,6 +975,14 @@
 					</releases>
 				</pluginRepository>
 			</pluginRepositories>
+
+			<dependencies>
+				<dependency>
+					<groupId>net.java.dev.jna</groupId>
+					<artifactId>jna</artifactId>
+					<version>${jna-version-windows}</version>
+				</dependency>
+			</dependencies>
 
 			<build>
 				<plugins>
@@ -1146,7 +1168,7 @@
 							<execution>
 								<id>build-pms-windows</id>
 								<configuration>
-									<makensisBin>${project.external-resources}/third-party/nsis/makensis.exe</makensisBin>
+									<makensisBin>${makensis-bin}</makensisBin>
 									<outputFile>${project.build.directory}/PMS.exe</outputFile>
 									<setupScript>${project.external-resources}/nsis/pms.nsi</setupScript>
 								</configuration>
@@ -1160,7 +1182,7 @@
 							<execution>
 								<id>build-setup-windows</id>
 								<configuration>
-									<makensisBin>${project.external-resources}/third-party/nsis/makensis.exe</makensisBin>
+									<makensisBin>${makensis-bin}</makensisBin>
 									<outputFile>${project.build.directory}/PMS-setup.exe</outputFile>
 									<setupScript>${project.external-resources}/nsis/setup.nsi</setupScript>
 								</configuration>
@@ -1176,18 +1198,26 @@
 			</build>
 		</profile>
 
-
 		<!--
 			Linux profile: takes care of building the final package for Linux
 		-->
 		<profile>
 			<id>linux</id>
+			<!--
+				 this setting does the right thing on Linux
+				 and is needed for the Hudson profile to work
+			 -->
 			<activation>
-				<activeByDefault>false</activeByDefault>
-				<os>
-					<family>unix</family>
-				</os>
+				<activeByDefault>true</activeByDefault>
 			</activation>
+
+			<dependencies>
+				<dependency>
+					<groupId>net.java.dev.jna</groupId>
+					<artifactId>jna</artifactId>
+					<version>${jna-version-posix}</version>
+				</dependency>
+			</dependencies>
 
 			<build>
 				<plugins>
@@ -1286,7 +1316,6 @@
 			</build>
 		</profile>
 
-
 		<!--
 			Mac OSX profile: takes care of building the final package for Mac OSX
 		-->
@@ -1298,6 +1327,15 @@
 					<family>mac</family>
 				</os>
 			</activation>
+
+			<dependencies>
+				<dependency>
+					<groupId>net.java.dev.jna</groupId>
+					<artifactId>jna</artifactId>
+					<version>${jna-version-posix}</version>
+				</dependency>
+			</dependencies>
+
 			<build>
 				<plugins>
 
@@ -1463,6 +1501,89 @@
 		</profile>
 
 		<!--
+			Hudson (windows-jar): minimal profile that builds pms.jar with the
+			Windows JNA. The POSIX JNA causes snapshot builds to crash the JVM on
+			Windows, whereas the Windows JNA only disables MediaInfo for Ubuntu
+			users, who can still use ffmpeg.
+
+			Another difference from the other profiles is that we don't download the
+			binaries or build the tarball.
+		-->
+		<profile>
+			<id>windows-jar</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>env.HUDSON_URL</name>
+				</property>
+			</activation>
+
+			<dependencies>
+				<dependency>
+					<groupId>net.java.dev.jna</groupId>
+					<artifactId>jna</artifactId>
+					<version>${jna-version-windows}</version>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<!-- Plugin to assemble a jar with dependencies -->
+					<plugin>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>2.4</version>
+						<executions>
+							<execution>
+								<id>make-jar-with-dependencies-win</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor>${project.basedir}/src/main/assembly/jar-with-dependencies.xml</descriptor>
+									</descriptors>
+									<archive>
+										<manifest>
+											<mainClass>net.pms.PMS</mainClass>
+											<addDefaultImplementationEntries>true</addDefaultImplementationEntries> <!-- see above for documentation -->
+										</manifest>
+									</archive>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!--
+						Use the antrun plugin to: copy the
+						pms-x.x.x-jar-with-dependencies.jar to pms.jar
+					-->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>copy-jar-with-dependencies-linux</id>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<copy file="${project.basedir}/target/${project.artifactId}-${project.version}-jar-with-dependencies.jar"
+											tofile="${project.basedir}/target/pms.jar" overwrite="true" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+		<!--
 			This profile allows running PMS from inside Eclipse
 			(Requires a "mvn clean package" to download the binaries first)
 		-->
@@ -1493,4 +1614,3 @@
 	</profiles>
 
 </project>
-

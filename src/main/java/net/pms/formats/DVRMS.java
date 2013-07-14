@@ -33,6 +33,8 @@ public class DVRMS extends Format {
 		return Identifier.DVRMS;
 	}
 
+	// XXX unused
+	@Deprecated
 	@Override
 	public ArrayList<Class<? extends Player>> getProfiles() {
 		ArrayList<Class<? extends Player>> a = new ArrayList<Class<? extends Player>>();
@@ -61,7 +63,10 @@ public class DVRMS extends Format {
 	 */
 	@Override
 	public String[] getId() {
-		return new String[] { "dvr-ms", "dvr" };
+		return new String[] {
+			"dvr",
+			"dvr-ms",
+		};
 	}
 
 	/**

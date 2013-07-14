@@ -214,7 +214,7 @@ EXTERNALPROJECT_ADD(
 
 EXTERNALPROJECT_ADD(
     zlib
-    URL http://zlib.net/zlib-1.2.7.tar.gz
+    URL http://zlib.net/zlib-1.2.8.tar.gz
     CONFIGURE_COMMAND ./configure --prefix=${CMAKE_BINARY_DIR} --static
     BUILD_IN_SOURCE 1
 )
@@ -451,7 +451,7 @@ SET(FFMPEG_CONFIGURE_COMMAND
 EXTERNALPROJECT_ADD(
     ffmpeg
     DEPENDS ${FFMPEG_DEPENDENCIES}
-    URL http://ffmpeg.org/releases/ffmpeg-1.1.2.tar.gz
+    URL http://ffmpeg.org/releases/ffmpeg-1.2.tar.gz
     PATCH_COMMAND patch -p1 < ${CMAKE_SOURCE_DIR}/vendor/ffmpeg-banner.patch
     CONFIGURE_COMMAND ${FFMPEG_CONFIGURE_COMMAND}
     BUILD_IN_SOURCE 1

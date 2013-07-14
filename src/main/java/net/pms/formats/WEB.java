@@ -55,6 +55,8 @@ public class WEB extends Format {
 		return type == IMAGE;
 	}
 
+	// XXX unused
+	@Deprecated
 	@Override
 	public ArrayList<Class<? extends Player>> getProfiles() {
 		ArrayList<Class<? extends Player>> a = new ArrayList<Class<? extends Player>>();
@@ -91,7 +93,17 @@ public class WEB extends Format {
 	@Override
 	// TODO remove screen - it's been tried numerous times (see forum) and it doesn't work
 	public String[] getId() {
-		return new String[] { "file", "http", "mms", "mmsh", "mmst", "rtsp", "rtp", "udp", "screen" };
+		return new String[] {
+			"file",
+			"http",
+			"mms",
+			"mmsh",
+			"mmst",
+			"rtp",
+			"rtsp",
+			"screen",
+			"udp",
+		};
 	}
 
 	@Override
